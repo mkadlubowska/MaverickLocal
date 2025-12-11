@@ -69,7 +69,7 @@ data_t = np.zeros((256, 512))
 with open(f'QC_251208/MX_251208_7387-primer_trimmed_reads-id{id}_deletions_per_ref.tsv', 'w') as f:
     f.write(f'#REF\tA deletions/cov\tC deletions/cov\tG deletions/cov\tT deletions/cov\n')
     for ref in sorted(deletion_dict.keys()):
-        if deletion_dict[ref]['cov'] >= 0:
+        if deletion_dict[ref]['cov'] > 0:
             data_a[ref-1, :] = deletion_dict[ref]['A']
             data_c[ref-1, :] = deletion_dict[ref]['C']
             data_g[ref-1, :] = deletion_dict[ref]['G']

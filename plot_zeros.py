@@ -18,7 +18,7 @@ def ref_to_location():
 
 
 data = np.zeros((512, 512))
-with open('/home/mkk/Projects/MaverickQC/MX_260102/MX_260102_seqs_with_2_near_perfect_fwd_primers.extracted.maxhits1.both_strands.mincols50.top_hits_only.id0.95.min.refs_with_cov_min_x1') as f:
+with open('/home/mkk/Projects/MaverickQC/MX_260102/MX_260102_seqs_with_2_near_perfect_fwd_primers.extracted.primer_corrected.maxhits1.both_strands.mincols50.top_hits_only.id0.9.min.refs_with_cov_min_x1') as f:
     present_refs = [l.strip().split()[-1] for l in f.readlines()]
 
 location_dict = ref_to_location()
@@ -44,7 +44,7 @@ plt.tick_params(labeltop=True, labelbottom=False, bottom=False, top=True)
 #plt.colorbar(label='Log(Cov)')
 
 # Add title and labels
-plt.xlabel('MX_260102, 95%; ZEROS (black = absent)')
+plt.xlabel('MX_260102 primer-corrected, 90%; ZEROS (black = absent)')
 # plt.xlabel('Rows')
 # plt.ylabel('Columns')
 # Display the plot

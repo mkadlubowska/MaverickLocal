@@ -1,6 +1,3 @@
-import math
-import statistics
-
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -28,24 +25,11 @@ for r in perfect_refs:
     r, c = location_dict[ref]
     data[r,c] =1
 
-#data = data[::-1]
-# Create the heatmap
-# Plot the heatmap
-plt.imshow(data, cmap='hot', interpolation='nearest') # 'hot' colormap, 'nearest' interpolation
-# plt.tick_params(
-#     axis='both',          # changes apply to the x-axis
-#     which='both',      # both major and minor ticks are affected
-#     bottom=False,      # ticks along the bottom edge are off
-#     top=False,         # ticks along the top edge are off
-#     labelbottom=False,
-#     labelleft=False) # labels along the bottom edge are off
-plt.tick_params(labeltop=True, labelbottom=False, bottom=False, top=True)
-# Add a colorbar
-#plt.colorbar(label='Log(Cov)')
 
-# Add title and labels
+plt.imshow(data, cmap='hot', interpolation='nearest') # 'hot' colormap, 'nearest' interpolation
+
+plt.tick_params(labeltop=True, labelbottom=False, bottom=False, top=True)
+
 plt.xlabel('MX_260102, 95%; Perfect oligos (white = perfect)')
-# plt.xlabel('Rows')
-# plt.ylabel('Columns')
-# Display the plot
+
 plt.show()

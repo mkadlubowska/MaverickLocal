@@ -34,16 +34,16 @@ def get_deletion_dict(alignment_file):
         ref = int(line[0])
         target_seq = line[-1]
         read_seq = line[-2]
-        missing_a = target_seq.count('A') - read_seq.count('A')
+        missing_a = (target_seq.count('A') - read_seq.count('A'))/ target_seq.count('A')
         if missing_a < 0:
             missing_a = 0
-        missing_c = target_seq.count('C') - read_seq.count('C')
+        missing_c = (target_seq.count('C') - read_seq.count('C'))/target_seq.count('C')
         if missing_c < 0:
             missing_c = 0
-        missing_g = target_seq.count('G') - read_seq.count('G')
+        missing_g = (target_seq.count('G') - read_seq.count('G'))/target_seq.count('G')
         if missing_g < 0:
             missing_g = 0
-        missing_t = target_seq.count('T') - read_seq.count('T')
+        missing_t = (target_seq.count('T') - read_seq.count('T'))/target_seq.count('T')
         if missing_t < 0:
             missing_t = 0
         deletion_dict[ref]['cov'] += 1
@@ -59,15 +59,15 @@ def get_deletion_dict(alignment_file):
             deletion_dict[ref]['T'] /= deletion_dict[ref]['cov']
     return deletion_dict
 
-id = 0.9
-deletion_dict = get_deletion_dict(f'/home/mkk/Projects/MaverickQC/QC_251208/MX_251208_7387-primer_trimmed_reads-id{id}-alignment_userfields')
+id = 0.95
+deletion_dict = get_deletion_dict(f'/home/magda/Projects/MaverickQC/QC_251208/MX_251208_7387-primer_trimmed_reads-id{id}-alignment_userfields')
 data_a = np.zeros((256, 512))
 data_c = np.zeros((256, 512))
 data_g = np.zeros((256, 512))
 data_t = np.zeros((256, 512))
 
-with open(f'QC_251208/MX_251208_7387-primer_trimmed_reads-id{id}_deletions_per_ref.tsv', 'w') as f:
-    f.write(f'#REF\tA deletions/cov\tC deletions/cov\tG deletions/cov\tT deletions/cov\n')
+with open(f'/home/magda/Projects/MaverickQC/QC_251208/MX_251208_7387-primer_trimmed_reads-id{id}_deletions_per_ref.tsv', 'w') as f:
+    f.write(f'#REF\tA dels normalized\tC dels normalized\tG dels normalized\tT dels normalized\n')
     for ref in sorted(deletion_dict.keys()):
         if deletion_dict[ref]['cov'] > 0:
             data_a[ref-1, :] = deletion_dict[ref]['A']
@@ -97,30 +97,30 @@ cmap = cm.hot_r
 cmap.set_bad(color='green')
 
 #A deletions
-plt.imshow(masked_a_data, cmap=cmap, interpolation='nearest')  # 'hot' colormap, 'nearest' interpolation
-plt.colorbar(label='DELs/cov') # Add a colorbar
-plt.xlabel(f'Ink006, MX_251208, ID {id*100}%, A deletions') # Add title and labels
+plt.imshow(masked_a_data, cmap=cmap, interpolation='nearest', vmax=0.16)  # 'hot' colormap, 'nearest' interpolation
+plt.colorbar(label='normalized A DELs') # Add a colorbar
+plt.xlabel(f'Ink006, MX_251208pt, ID {id*100}%, A deletions') # Add title and labels
 plt.tick_params(labeltop=True, labelbottom=False, bottom=False, top=True)
 plt.show()
 
 #C deletions
-plt.imshow(masked_c_data, cmap=cmap, interpolation='nearest')  # 'hot' colormap, 'nearest' interpolation
-plt.colorbar(label='DELs/cov') # Add a colorbar
-plt.xlabel(f'Ink006, MX_251208, ID {id*100}%, C deletions') # Add title and labels
+plt.imshow(masked_c_data, cmap=cmap, interpolation='nearest', vmax=0.16)  # 'hot' colormap, 'nearest' interpolation
+plt.colorbar(label='normalized C DELs') # Add a colorbar
+plt.xlabel(f'Ink006, MX_251208pt, ID {id*100}%, C deletions') # Add title and labels
 plt.tick_params(labeltop=True, labelbottom=False, bottom=False, top=True)
 plt.show()
 
 #G deletions
-plt.imshow(masked_g_data, cmap=cmap, interpolation='nearest')  # 'hot' colormap, 'nearest' interpolation
-plt.colorbar(label='DELs/cov') # Add a colorbar
-plt.xlabel(f'Ink006, MX_251208, ID {id*100}%, G deletions') # Add title and labels
+plt.imshow(masked_g_data, cmap=cmap, interpolation='nearest', vmax=0.16)  # 'hot' colormap, 'nearest' interpolation
+plt.colorbar(label='normalized G DELs') # Add a colorbar
+plt.xlabel(f'Ink006, MX_251208pt, ID {id*100}%, G deletions') # Add title and labels
 plt.tick_params(labeltop=True, labelbottom=False, bottom=False, top=True)
 plt.show()
 
 #T deletions
-plt.imshow(masked_t_data, cmap=cmap, interpolation='nearest')  # 'hot' colormap, 'nearest' interpolation
-plt.colorbar(label='DELs/cov') # Add a colorbar
-plt.xlabel(f'Ink006, MX_251208, ID {id*100}%, T deletions') # Add title and labels
+plt.imshow(masked_t_data, cmap=cmap, interpolation='nearest', vmax=0.16)  # 'hot' colormap, 'nearest' interpolation
+plt.colorbar(label='normalized T DELs') # Add a colorbar
+plt.xlabel(f'Ink006, MX_251208pt, ID {id*100}%, T deletions') # Add title and labels
 plt.tick_params(labeltop=True, labelbottom=False, bottom=False, top=True)
 plt.show()
 

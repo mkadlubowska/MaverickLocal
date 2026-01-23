@@ -19,7 +19,7 @@ for line in lines:
 
 for ref_seq, alignments in alignment_dict.items():
     last_deleted_position = 0
-    for i in range(50):
+    for i in range(15, 35):
         bases = [s[i] for s in alignments]
         dels = bases.count('-')
         if dels > .5*len(bases):
